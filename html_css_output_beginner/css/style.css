@@ -1,0 +1,189 @@
+.container{
+    width: 92%;
+    display: grid;
+    grid-template-columns: 100%;
+    padding: 0 4%;
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+header {
+    margin: 30px 0 20px 0;
+}
+
+header ul{
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+}
+
+header ul li {
+    font-size: 12px;
+    width: 100%;
+    text-align: center;
+    height: 30px;
+    line-height: 30px;
+}
+
+header ul li:hover{
+    font-size: 1.1em;
+    background-color: dimgray;
+    color: #fff;
+}
+
+.main_visual  img{
+    grid-row: 2;
+    height: 600px;
+    object-fit: cover; 
+    margin: 0 calc(50% - 50vw);
+    width: 100vw;
+}
+
+h2 {
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    font-size: 30px;
+    border-bottom: 1px solid #000;
+    margin: 0 auto;
+}
+
+.intoroduce h2 {
+    width: 150px;
+    margin-bottom: 50px;
+}
+
+.intoroduce .name {
+    font-weight: bold;
+    height: 40px;
+    width: 150px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.intoroduce .intro_text {
+    width: 100%;
+    font-size: 17px;
+} 
+
+.intoroduce img {
+    margin: 0 auto;
+    display: block;
+    border-radius: 50%;
+    margin-top: 10px;
+}
+
+.profile_images h2{
+    width: 250px;
+    margin-bottom: 70px;
+}
+
+.profile_images .profile_image img{
+    width: 100%;
+    height: auto;
+    max-width: 640px;
+    max-height: 424px;
+    margin-bottom: 30px;
+}
+
+.profile_image h3 {
+    width: 100%;
+    text-align: center;
+    
+    font-size: 1.2em;
+}
+
+.p_text{
+    margin: 20px 0 20px 0;
+    width: 100%;
+    text-align: center;
+}
+
+section {
+    margin-top: 80px;
+}
+
+footer {
+    margin: 100px 0 20px 0;
+}
+
+footer p {
+    height: 30px;
+    text-align: center;
+    border-bottom: 3px solid #000;
+    font-size: 0.8em;
+    margin: 0 calc(50% - 50vw);
+    width: 100vw;
+}
+
+/*pcの設定*/
+@media screen and (min-width:600px){
+
+    header ul{
+        justify-content: fix-end;
+    }
+
+    header ul li {
+        width:fit-content;
+    }
+
+    header ul li:first-child {
+        margin-right: auto;
+    }
+
+    header ul li:nth-child(2) {
+        margin-right: 20px;
+    }
+
+    .intoroduce {
+        display: grid;
+        grid-template-columns: 1fr 6.5fr 2.5fr;
+        width: 100%;
+        height: auto; 
+        gap: 10px 0;
+        max-width: 960px;
+
+    }
+
+    .intoroduce h2 {
+        grid-column: 1 / 4;
+    }
+
+    .intoroduce .name {
+        grid-column: 2;
+        margin:0;
+        text-align: unset;
+        grid-row: 2;
+        height: auto;
+        padding-top: 50px;
+    }
+
+    .intoroduce .intro_text {
+        grid-column: 2;
+        grid-row: 3;
+        height: auto;
+        line-height: 1.2em;
+        
+
+    }
+
+    .intoroduce figure {
+        grid-column: 3;
+        grid-row: 2 / 4;
+    }
+
+    .intoroduce figure  img{
+        margin-left: 0;   
+    }
+
+    .profile_images {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 10px 10px;
+    }
+
+    .profile_images h2 {
+        grid-column: 1 / 4;
+    }
+}

@@ -1,25 +1,18 @@
 require 'optparse'
 require 'date'
 
+date = Date.today
+
 # 引数-mとintの引数を受付ける
-value = 0
+value = date.month
 opt = OptionParser.new
 opt.on('-m int') { |v| value = v.to_i }
 opt.parse!(ARGV)
 
-date = Date.today
+raise "#{value} is neither a month number (1..12) nor a name" unless value.between?(1, 12)
 
-# 引数の値に応じて指定月か当月をfirst_dayとlast_dayに代入する
-if value.between?(1, 12)
-  first_day = Date.new(date.year, value)
-  last_day = Date.new(date.year, value, -1)
-elsif value.zero?
-  first_day = Date.new(date.year, date.month)
-  last_day = Date.new(date.year, date.month, -1)
-else
-  puts "#{value} is neither a month number (1..12) nor a name"
-  return
-end
+first_day = Date.new(date.year, value)
+last_day = Date.new(date.year, value, -1)
 
 days = %w[月 火 水 木 金 土 日]
 month_start_day = first_day.wday - 1

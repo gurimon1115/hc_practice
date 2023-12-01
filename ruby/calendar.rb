@@ -17,12 +17,6 @@ last_day = Date.new(year, value, -1)
 
 days = %w[月 火 水 木 金 土 日]
 
-# 月初から月末の日付オブジェクトを取得する
-dates = []
-(first_day..last_day).each do |d|
-  dates << d
-end
-
 # 年月、月〜日を表示
 puts "      #{first_day.strftime('%m')}月 #{year}"
 puts days.join(' ')

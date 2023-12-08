@@ -3,16 +3,15 @@ require_relative 'suica'
 
 # VendingMachineクラスの定義
 class VendingMachine
-  attr_reader :sell_amt, :stocks
+  attr_reader :sell_amt
 
   def initialize
     @products = []
-    @products << Juice.new('ペプシ', 150)
-    @products << Juice.new('モンスター', 230)
-    @products << Juice.new('いろはす', 120)
-
-    @stocks = {}
-    @products.each { |p| @stocks.store(p.name, 5) }
+    5.times do
+      @products << Juice.new('ペプシ', 150)
+      @products << Juice.new('モンスター', 230)
+      @products << Juice.new('いろはす', 120)
+    end
 
     # 売上
     @sell_amt = 0
@@ -23,13 +22,11 @@ class VendingMachine
     err_msg = can_buy_check(name, suica)
     raise err_msg unless err_msg == ''
 
-    @stocks[name] -= 1
-    @products.each do |item|
-      if item.name == name
-        @sell_amt += item.price
-        suica.pay(item.price)
-      end
-    end
+    idx = @products.index { |val| val.name == name }
+
+    @sell_amt += @products[idx].price
+    suica.pay(@products[idx].price)
+    @products.delete_at(idx)
   end
 
   # 在庫リスト
@@ -43,25 +40,31 @@ class VendingMachine
   end
 
   # 在庫補充
-  def restock_drink(name, qty)
-    @stocks[name] += qty if @stocks.key?(name)
+  def restock_drink(name, price, qty)
+    qty.times do
+      @products << Juice.new(name, price)
+    end
   end
 
   private
 
   def ret_list(param)
+    drinks = @products.map(&:name).uniq
     list = []
-    @stocks.each do |key, val|
-      list << if param == :stock then "#{key} #{val}本"
-              elsif param == :can_buy && val.positive? then key
-              end
+    if param == :stock
+      drinks.each do |drink|
+        qty = @products.select { |n| n.name == drink }.count
+        list << "#{drink} : #{qty}本"
+      end
+    elsif param == :can_buy
+      list = drinks
     end
     list.join(',')
   end
 
   def can_buy_check(name, suica)
     err_list = []
-    err_list << '在庫がないため購入できません。' unless @stocks[name].positive?
+    err_list << '在庫がないため購入できません。' unless @products.map(&:name).uniq.include?(name)
 
     @products.each do |item|
       err_list << '残高が足りないため購入できません。' if item.name == name && item.price > suica.amt

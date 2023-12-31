@@ -1,5 +1,5 @@
 [users] {bgcolor: "#d0e0d0"}
-  *user_id {label: "bigint, not null"}
+  *id {label: "bigint, not null"}
   email {label: "varchar, not null, uniq"}
   user_name {label: "varchar, not null, uniq"}
   phone_number {label: "varchar, not null, uniq"}
@@ -14,44 +14,47 @@
   updated_at { label: "datatime, not null" }
 
 [tweets]
-  *tweet_id {label: "bigint, not null"}
+  *id {label: "bigint, not null"}
   user_id {label: "bigint, not null, FK(users)"}
   tweet_type {label: "bigint, not null"}
   retweet_id {label: "bigint"}
-  tweet_text {label: "varchar"}
+  contents {label: "varchar"}
   created_at { label: "datatime, not null"}
   updated_at { label: "datatime, not null"}
 
-[likes]
-  *like_id {label: "bigint, not null"}
+[retweets]
+  *id {label: "bigint, not null"}
   user_id {label: "bigint, not null, FK(users)"}
   tweet_id {label: "bigint, not null, FK(tweets)"}
   created_at { label: "datatime, not null"}
   updated_at { label: "datatime, not null"}
 
-[follows]
-  *follow_id {label: "bigint, not null"}
+
+[likes]
+  *id {label: "bigint, not null"}
   user_id {label: "bigint, not null, FK(users)"}
+  tweet_id {label: "bigint, not null, FK(tweets)"}
   created_at { label: "datatime, not null"}
   updated_at { label: "datatime, not null"}
 
-[followers]
-  *follower_id {label: "bigint, not null"}
-  user_id {label: "bigint, not null, FK(users)"}
+[relationships]
+  *id {label: "bigint, not null"}
+  follower_id {label: "bigint, not null, FK(users)"}
+  followed_id {label: "bigint, not null, FK(users)"}
   created_at { label: "datatime, not null"}
   updated_at { label: "datatime, not null"}
 
 [messages]
-  *message_id {label: "bigint, not null"}
+  *id {label: "bigint, not null"}
   user_id {label: "bigint, not null, FK(users)"}
   send_to_id {label: "bigint, not null, FK(users)"}
-  message_text {label: "varchar"}
+  contents {label: "varchar"}
   created_at { label: "datatime, not null"}
   updated_at { label: "datatime, not null"}
 
 
 [bookmarks]
-  *bookmark_id {label: "bigint, not null"}
+  *id {label: "bigint, not null"}
   tweet_id {label: "bigint, not null, FK(tweets)"}
   created_at { label: "datatime, not null"}
   updated_at { label: "datatime, not null"}
@@ -62,8 +65,7 @@
 # 0 or more      *
 # 1 or more      +
 users 1--* `tweets`
-users 1--* `follows`
-users 1--* `followers`
+users 1--* `relationships`
 users 1--* `messages`
 
 tweets 1--* `likes`

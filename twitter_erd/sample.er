@@ -1,0 +1,71 @@
+[users] {bgcolor: "#d0e0d0"}
+  *id {label: "bigint, not null"}
+  email {label: "varchar, not null, uniq"}
+  user_name {label: "varchar, not null, uniq"}
+  phone_number {label: "varchar, not null, uniq"}
+  display_name {label: "varchar, not null"}
+  intoroduce {label: "varchar"}
+  place {label: "varchar"}
+  barth_day {label: "char"}
+  place {label: "varchar"}
+  profile_img {label: "varchar"}
+  avatar_img {label: "varchar"}
+  created_at { label: "datatime, not null" }
+  updated_at { label: "datatime, not null" }
+
+[tweets]
+  *id {label: "bigint, not null"}
+  user_id {label: "bigint, not null, FK(users)"}
+  contents {label: "varchar"}
+  created_at { label: "datatime, not null"}
+  updated_at { label: "datatime, not null"}
+
+[retweets]
+  *id {label: "bigint, not null"}
+  user_id {label: "bigint, not null, FK(users)"}
+  tweet_id {label: "bigint, not null, FK(tweets)"}
+  created_at { label: "datatime, not null"}
+  updated_at { label: "datatime, not null"}
+
+
+[likes]
+  *id {label: "bigint, not null"}
+  user_id {label: "bigint, not null, FK(users)"}
+  tweet_id {label: "bigint, not null, FK(tweets)"}
+  created_at { label: "datatime, not null"}
+  updated_at { label: "datatime, not null"}
+
+[relationships]
+  *id {label: "bigint, not null"}
+  follower_id {label: "bigint, not null, FK(users)"}
+  followed_id {label: "bigint, not null, FK(users)"}
+  created_at { label: "datatime, not null"}
+  updated_at { label: "datatime, not null"}
+
+[messages]
+  *id {label: "bigint, not null"}
+  user_id {label: "bigint, not null, FK(users)"}
+  send_to_id {label: "bigint, not null, FK(users)"}
+  contents {label: "varchar"}
+  created_at { label: "datatime, not null"}
+  updated_at { label: "datatime, not null"}
+
+
+[bookmarks]
+  *id {label: "bigint, not null"}
+  user_id {label: "bigint, not null, FK(users)"}
+  tweet_id {label: "bigint, not null, FK(tweets)"}
+  created_at { label: "datatime, not null"}
+  updated_at { label: "datatime, not null"}
+
+# Cardinality    Syntax
+# 0 or 1         ?
+# exactly 1      1
+# 0 or more      *
+# 1 or more      +
+users 1--* `tweets`
+users 1--* `relationships`
+users 1--* `messages`
+
+tweets 1--* `likes`
+tweets 1--* `bookmarks`

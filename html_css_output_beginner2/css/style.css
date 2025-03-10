@@ -24,7 +24,7 @@ nav ul {
 nav ul li {
   width: 30%;
   text-align: center;
-  font-size: 10px;
+  font-size: 15px;
   padding: 10px 0;
   font-weight: 550;
 }
@@ -54,7 +54,7 @@ a:hover {
   right: 50%;
   margin-left: -50vw;
   margin-right: -50vw;
-  margin-bottom: 10px;
+  margin-bottom: 30px;
 }
 
 section {
@@ -117,7 +117,12 @@ footer p {
 @media screen and (min-width: 600px) {
   nav ul li {
     font-size: 15px;
+    width: 20%;
   }
+  .resume {
+    margin-right: auto;
+  }
+
   .main_img img {
     margin-bottom: 150px;
   }

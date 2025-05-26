@@ -1,26 +1,25 @@
 regulations, strokes = [list(map(int, input().split(","))) for _ in range(2)]
 
+SCORE_MAP = {
+    -4: "コンドル",
+    -3: "アルバトロス",
+    -2: "イーグル",
+    -1: "バーディ",
+    0: "パー",
+    1: "ボギー",
+}
+
 results = []
 result = ""
 for regulation, stroke in zip(regulations, strokes):
-    if stroke > regulation:
-        if (stroke - regulation) == 1:
-            result = "ボギー"
-        else:
-            result = str(stroke - regulation) + "ボギー"
-    elif stroke == regulation:
-        result = "パー"
-    elif stroke == 1:
-        if regulation == 5:
-            result = "コンドル"
-        else:
-            result = "ホールインワン"
-    elif (stroke - regulation) == -1:
-        result = "バーディ"
-    elif (stroke - regulation) == -2:
-        result = "イーグル"
-    elif (stroke - regulation) == -3 and regulation == 5:
-        result = "アルバトロス"
+    score = stroke - regulation
+
+    if stroke == 1 and regulation != 5:
+        result = "ホールインワン"
+    elif score >= 2:
+        result = str(stroke - regulation) + "ボギー"
+    else:
+        result = SCORE_MAP[score]
 
     results.append(result)
 print(",".join(results))
